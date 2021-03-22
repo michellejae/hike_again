@@ -17,13 +17,10 @@ const isProd = ENV === 'bulid';
 module.exports = {
   // have to change from development to prodcution
     mode: 'development',
-
-
-    // will eventually need to change this to src/app/app.js
-
+    // everything from this page is where we will edit code (for front end). it all runs through here
     entry: './src/app/app.js',
 
-    // need to change this to show hashout the filename
+   // the eventual minimized and optimized code that webpack builds
     output: {
         path: path.resolve(__dirname, 'public'),
         filename: '[name].[contenthash].js',
@@ -67,6 +64,7 @@ module.exports = {
     },
 
     plugins: [
+      // generates a css file for every js file that imports css
         new MiniCssExtractPlugin({
             filename: 'css/[name].css',
             chunkFilename: '[id].css',
@@ -77,7 +75,7 @@ module.exports = {
             inject: 'body'}),
     ],
 
-
+    // i kept getting .txt files when i would do a build, this should take it off. 
   optimization: {
     minimize: true,
     minimizer: [
@@ -101,7 +99,7 @@ module.exports = {
     //   },
     // will need to set proxy to backend
     devServer: {
-        contentBase: './public',
+        contentBase: './src/public',
       },
 
 }
