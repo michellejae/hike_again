@@ -14,11 +14,11 @@ module.exports = {
       charset: 'utf8'
     },
     migrations: {
-      directory: path.join(__dirname, 'server/knex/migrations')
+      directory: path.join(__dirname, 'knex/migrations')
     
     },
     seeds: {
-      directory: path.join(__dirname, 'server/knex/seeds')
+      directory: path.join(__dirname, 'knex/seeds')
     }
   },
 
