@@ -2,6 +2,9 @@
 const express = require('express');
 const app = express();
 
+const fakeGoodData = require('./utilities/fakeGoodData')
+const fakeAllData = require('./utilities/fakeAllData')
+
 
 //CONSTANTS
 const PORT = process.env.PORT  || 3000;
@@ -13,6 +16,11 @@ app.use(express.urlencoded({extended: false }));
 
 //app.use(express.static(path.join(__dirname, '..', 'pubic')));
 
+
+app.get('/api/hikeNow/fakeData', (req, res) => {
+    return res.json(fakeGoodData)
+  })
+  
 
 app.get('/', (req, res) => {
     res.send('BOOOOP')
