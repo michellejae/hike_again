@@ -4,10 +4,11 @@ const app = express();
 
 const fakeGoodData = require('./utilities/fakeGoodData')
 const fakeAllData = require('./utilities/fakeAllData')
-
+const { getTrails } = require('./routes/trails')
 
 //CONSTANTS
 const PORT = process.env.PORT  || 3000;
+
 
 //APPLICATIONS
 app.use(express.json());
@@ -20,6 +21,7 @@ app.use(express.urlencoded({extended: false }));
 app.get('/api/hikeNow/fakeData', (req, res) => {
     return res.json(fakeGoodData)
   })
+
   
 
 app.get('/', (req, res) => {
@@ -56,3 +58,5 @@ app.listen(PORT, () => {
     // additional function for the total rain data per station over 24 hours
      // getRainTotalData();
   });
+
+  
