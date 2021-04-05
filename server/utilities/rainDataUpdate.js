@@ -12,31 +12,44 @@ let long;
 const rainAPI = `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search`
 
 module.exports = {
-    getTrailHeads
+    getTrailKeys
 }
 
-// fetch all trails from DB and store the coordinates in an array 
-function getTrailHeads() {
+// fetch all keys from Trails but not duplicates
+// function getTrailKeys() {
+//     return new Trail()
+//     .fetchAll({columns: ['rain']})
+//     .then(result => {
+//         result = result.toJSON()
+//         const mySet = new Set(result.rain)
+//         let keys = [...mySet]
+       
+//     }).catch(err => console.log('err on getting keys', err))
+// }
 
+
+function getTrailKeys() {
+    const keySet = new Set()
     return new Trail()
     .fetchAll()
     .then(result => {
         result = result.toJSON()
-        result.map(element => {
-            names.push(element.trailName)
-            trailCoords.push(element.coordinates);
+        result.map(trail => {
+            keySet.add(trail.rain)
         })
-        fireWeatherAPI(trailCoords, names);
-    })
+        console.log(keySet)
+    }).catch(err => console.log('err on getting keys', err))
+
+    
 }
 
 
 
 
 
-    // get last 1hr rain data for eacy key
+    // get last 1hr rain data for each key
 
-  async function getWeatherData(lat, long, name) {
+  async function getWeatherData(key) {
       
       const newWeatherAPIEndpoint = `${newWeatherAPI}?apikey=${WEATHERAPIKEYTWO}%20&q=${lat}%2C${long}`
     try {

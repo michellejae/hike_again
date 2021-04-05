@@ -19,6 +19,7 @@ module.exports = {
 //IN THEORY WE ONLY RUN THIS ONCE, SIMLIAR TO GET TRAILS FUNCTION
 
 // fetch all trails from DB and grab the coords and the name
+// i should rewrite this to only fetch specific columns
 function updateTrailsWithRainKey() {
     return new Trail()
     .fetchAll()
