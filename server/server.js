@@ -67,7 +67,7 @@ app.listen(PORT, () => {
    // getRainData();
   
     // fire off weather api and save to global variable
-   // getTrailKeys();
+    // getTrailKeys();
    
     // functions used when app is deployed to have set times to fire off weather and rain api's
    // timedRain();
