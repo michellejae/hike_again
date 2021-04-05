@@ -2,10 +2,14 @@
 const express = require('express');
 const app = express();
 
-const fakeGoodData = require('./utilities/fakeGoodData');
-const fakeAllData = require('./utilities/fakeAllData');
+//const fakeGoodData = require('./utilities/fakeGoodData');
+//const fakeAllData = require('./utilities/fakeData/fakeAllData');
 const { getTrails } = require('./routes/trails');
 const Trail = require(`./db/models/Trails`);
+const { getRainData} = require ('./utilities/rainData.js');
+const { getTrailHeads} = require('./utilities/weatherData.js');
+const { updateTrailsWithRainKey } = require('./utilities/updateTrailsTableOnDb')
+
 
 
 //CONSTANTS
@@ -24,7 +28,8 @@ app.get('/api/hikeNow/all', (req, res) => {
   .then(allTrails => {
     allTrails = allTrails.toJSON()
     
-   // when returning to postman use this return res.json(allTrails)
+   // when returning to postman use this 
+   return res.json(allTrails)
   })
 })
 
@@ -50,16 +55,18 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`SERVER IS LISTENING ON ${PORT}`);
    
+    // IN THEORY WE SHOULD ONLY UPDATE THESE ONCE
     // put trails in db
-    // getTrails();
+     //getTrails();
     // add rain stations to trails db
-    // updateWeatherStations();
+    //updateTrailsWithRainKey()
   
+
     // fire off rain api and save to global variable
    // getRainData();
   
     // fire off weather api and save to global variable
-   // getTrailHeads();
+    // getTrailHeads();
    
     // functions used when app is deployed to have set times to fire off weather and rain api's
    // timedRain();

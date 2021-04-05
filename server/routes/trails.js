@@ -30,6 +30,7 @@ function saveTrailsToDb(element) {
     // check which trails have three nested arrays in the coordinates property
     // if so, when data gets saved to DB below we grab one more [0]
    let coords = Array.isArray(element.geometry.coordinates[0][0])
+
       
     return new Trail ({
         district: element.properties.district,
@@ -42,8 +43,9 @@ function saveTrailsToDb(element) {
         use_rest: element.properties.use_rest,
         hazard: element.properties.hazards,
         trailname: element.properties.trailname,
-        coordinates: coords ? JSON.stringify(element.geometry.coordinates[0][0][0]) : JSON.stringify(element.geometry.coordinates[0][0]),
+        coordinates: coords ? JSON.stringify(element.geometry.coordinates[0][0]) : JSON.stringify(element.geometry.coordinates[0]),
         weather: coords ? JSON.stringify(element.geometry.coordinates[0][0][0]) : JSON.stringify(element.geometry.coordinates[0][0]),
+        rain: 0,
         standard: element.properties.standard
       }).save()
 }
