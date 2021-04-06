@@ -1,5 +1,4 @@
 const fetch = require(`node-fetch`);
-const { DateTime } = require("luxon");
 
 const Trail = require('../db/models/Trails');
 const weatherConfig = require(`../../config/config.js`);

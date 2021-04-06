@@ -1,37 +1,42 @@
 const fetch = require(`node-fetch`);
-const { DateTime } = require("luxon");
+
 
 const Trail = require('../db/models/Trails');
 const weatherConfig = require(`../../config/config.js`);
 const WEATHERAPIKEY = weatherConfig.weather.apiKey;
-const WEATHERAPIKEYTWO = weatherConfig.weather.apiKey2;
+
 
 let lat;
 let long;
-//const weatherAPI = `https://api.openweathermap.org/data/2.5/onecall?`;
-const newWeatherAPI = `http://dataservice.accuweather.com/locations/v1/cities/geoposition/search`
+
+
+ const weatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/`;
 
 module.exports = {
     getTrailHeads
 }
 
+global.hikeNow = {};
+//global.hikeNow.weather = {};
+
 // fetch all trails from DB and store the coordinates in an array 
 function getTrailHeads() {
+    global.hikeNow.weather = {};
     let trailCoords = [];
-    let names = []
     return new Trail()
     .fetchAll()
     .then(result => {
         result = result.toJSON()
         result.map(element => {
-            names.push(element.trailname)
             trailCoords.push(element.coordinates);
         })
-        fireWeatherAPI(trailCoords, names);
+        fireWeatherAPI(trailCoords)
     })
 }
 
+// use when first testing api responses and don't want to call all 46 trails each time
 // function getTrailHeads(){
+//     global.hikeNow.weather = {};
 //     let tn = `Manoa Falls Trail`;
 //     return new Trail()
 //     .where({trailname: tn})
@@ -48,37 +53,40 @@ function getTrailHeads() {
 
 // probably did not need this but ahd it from OG project, but each set of coords in trailCoords
 // are in an array so just mapping through to grab each element
-function fireWeatherAPI (arr, arr2) {
+function fireWeatherAPI (arr) {
     let lat;
     let long;
-    let name;
-    arr.map((element, i) => {
-      name = arr2[i]
-      lat = element[1];
+    arr.map((element) => {
       long = element[0];
-     getWeatherData(lat, long, name);
+      lat = element[1];
+      getWeatherData(lat, long);
     });
   };
 
 
-  async function getWeatherData(lat, long, name) {
-      
-      const newWeatherAPIEndpoint = `${newWeatherAPI}?apikey=${WEATHERAPIKEYTWO}%20&q=${lat}%2C${long}`
+  async function getWeatherData(lat, long) {
+      const newWeatherAPIEndpoint = `${weatherAPI}${lat}%2C%20${long}?unitGroup=us&key=${WEATHERAPIKEY}&include=current`
     try {
         const value = await fetch(newWeatherAPIEndpoint)
        // console.log('fired weather API');
         const weather = await value.json()
-       
-        console.log(weather.Key, 'booooooop', name)
-        // let hourly = weather.hourly
-        // hourly.forEach(hour =>{
-            
-        //     // let dt = DateTime.fromMillis(hour.dt)
-        //     // //dt.toLocaleString(DateTime.DATE_SHORT);
-        //     // console.log(dt.c)
-            
-        // })
-       // console.log(weather.hourly.rain)
+
+    
+        global.hikeNow.weather[weather.longitude] = {
+            longitude: weather.longitude,
+            observationTime: Date(weather.currentConditions.datetimeEpoch),
+            summary: weather.currentConditions.conditions,
+            weatherIcon: weather.currentConditions.icon,
+            temp: weather.currentConditions.temp,
+            realFeel: weather.currentConditions.feelslike,
+            humidity: weather.currentConditions.humidity,
+            windSpeed: weather.currentConditions.windspeed,
+            windGust: weather.currentConditions.windgust,
+            windDirections: weather.currentConditions.winddir,
+            sunrise: weather.currentConditions.sunrise,
+            sunset: weather.currentConditions.sunset
+        }
+        console.log(global.hikeNow.weather)
     } catch (error) {
         console.log('ERR', error)
     }

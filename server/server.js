@@ -4,9 +4,8 @@ const app = express();
 
 //const fakeGoodData = require('./utilities/fakeGoodData');
 //const fakeAllData = require('./utilities/fakeData/fakeAllData');
-const { getTrails } = require('./routes/trails');
 const Trail = require(`./db/models/Trails`);
-// const { getRainData} = require ('./utilities/rainData.js');
+const { getTrails } = require('./routes/trails');
 const { getTrailHeads} = require('./utilities/weatherData.js');
 const { updateTrailsWithRainKey } = require('./utilities/updateTrailsTableOnDb');
 const { getTrailKeys } = require('./utilities/rainDataUpdate');
@@ -63,10 +62,10 @@ app.listen(PORT, () => {
     //updateTrailsWithRainKey()
   
 
-    // fire off rain api and save to global variable
-   // getRainData();
+    // fire off weahter api and save to global variable
+   //getTrailHeads();
   
-    // fire off weather api and save to global variable
+    // fire off rain api and save to global variable
     // getTrailKeys();
    
     // functions used when app is deployed to have set times to fire off weather and rain api's
