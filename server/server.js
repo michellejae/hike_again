@@ -1,6 +1,7 @@
 //MODULES
 const express = require('express');
 const app = express();
+const path = require('path');
 
 //const fakeGoodData = require('./utilities/fakeGoodData');
 //const fakeAllData = require('./utilities/fakeData/fakeAllData');
@@ -21,35 +22,39 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false }));
 
 
-//app.use(express.static(path.join(__dirname, '..', 'pubic')));
-app.get('/api/hikeNow/all', (req, res) => {
-  return new Trail()
-  .fetchAll()
-  .then(allTrails => {
-    allTrails = allTrails.toJSON()
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
+
+// app.get('/api/hikeNow/all', (req, res) => {
+//   return new Trail()
+//   .fetchAll()
+//   .then(allTrails => {
+//     allTrails = allTrails.toJSON()
     
-   // when returning to postman use this 
-   return res.json(allTrails)
-  })
-})
+//    // when returning to postman use this 
+//    return res.json(allTrails)
+//   })
+// })
 
-app.get('/api/hikeNow/fakeData', (req, res) => {
-    return res.json(fakeGoodData)
-  })
+// app.get('/api/hikeNow/fakeData', (req, res) => {
+//     return res.json(fakeGoodData)
+//   })
 
-  
+    app.get('/api/hikeNow', (req, res) => {
+      return res.send('it went through')
+    })
 
-app.get('/', (req, res) => {
-    res.send('BOOOOP')
-  })
+// app.get('/', (req, res) => {
+//     res.send('BOOOOP')
+//   })
   
   // when i'm ready to connect to front end. not sure why i need this and app.use(express.static)
-//   app.get('/*', (req, res)=>{
-//     let options = {
-//       root: path.join(__dirname, '..', 'pubic')
-//     };
-//     res.sendFile('index.html', options);
-//   })
+  app.get('/*', (req, res)=>{
+    let options = {
+      root: path.join(__dirname, '..', 'public')
+    };
+    res.sendFile('index.html', options);
+  })
 
 
 app.listen(PORT, () => {

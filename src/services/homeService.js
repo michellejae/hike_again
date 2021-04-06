@@ -5,6 +5,14 @@ const homeService = [`$http`, function ($http) {
     // this.getTrails = function () {
     //   return trailsArr;
     // }
+
+    this.fetchTrails = function(){
+      
+      return $http.get('/api/hikeNow')
+        .then(data => {
+          console.log(data)
+        })
+    }
   
     // this.fetchTrails = function () {
     //   return $http.get('/api/hikeNow')
