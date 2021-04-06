@@ -17,7 +17,7 @@ module.exports = {
 global.hikeNow = {};
 global.hikeNow.rain = {};
 
-
+// fetch all trails and get all rain keys (there are a lot of duplicates)
 function getTrailKeys() { 
     const keySet = new Set()
     return new Trail()
@@ -25,14 +25,14 @@ function getTrailKeys() {
     .then(result => {
         result = result.toJSON()
         result.map(trail => {
-            keySet.add(trail.rain)
+            keySet.add(trail.rain) // add each key to a set, since there are duplicates only one of each will be added
         })
         singleOutKeys(keySet)
     }).catch(err => console.log('err on getting keys', err))
 }
 
 function singleOutKeys(set){
-    let keyArr = [...set]
+    let keyArr = [...set] // turn set back into array so i can loop through and call the rain api to get data
     keyArr.forEach(key => {
        getRainData(key)
     })
@@ -50,16 +50,12 @@ function singleOutKeys(set){
         weather.forEach(element => {
             let time = Date(element.LocalObservationDateTime)
             let rain = element.Precip1hr.Imperial.Value
-        
             global.hikeNow.rain[key] = {
                 key: key,
                 rainfall: rain,
                 observationTime: time
             }
-            
         })
-
-        console.log(global.hikeNow.rain)
     } catch (error) {
         console.log('ERR', error)
     }

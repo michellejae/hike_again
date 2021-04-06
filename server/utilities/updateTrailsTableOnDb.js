@@ -19,7 +19,6 @@ module.exports = {
 //IN THEORY WE ONLY RUN THIS ONCE, SIMLIAR TO GET TRAILS FUNCTION
 
 // fetch all trails from DB and grab the coords and the name
-// i should rewrite this to only fetch specific columns
 function updateTrailsWithRainKey() {
     return new Trail()
     .fetchAll()
@@ -27,9 +26,8 @@ function updateTrailsWithRainKey() {
         trails = trails.toJSON()
         trails.map(element => {
            name = element.trailname 
-           lat = element.coordinates[1]
            long = element.coordinates[0]
-           
+           lat = element.coordinates[1]
            fireRainAPI(lat, long, name)
         })
     })
@@ -52,7 +50,6 @@ async function fireRainAPI(lat, long, name){
 }
 // save each key with it's correstponding trail name to the db
 async function updateRainInDatabase(key, name) {
-    console.log({key, name})
     try {
         await Trail.where({trailname: name})
         .save({rain: key}, {patch:true})

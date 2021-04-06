@@ -22,15 +22,15 @@ global.hikeNow = {};
 // fetch all trails from DB and store the coordinates in an array 
 function getTrailHeads() {
     global.hikeNow.weather = {};
-    let trailCoords = [];
     return new Trail()
     .fetchAll()
     .then(result => {
         result = result.toJSON()
         result.map(element => {
-            trailCoords.push(element.coordinates);
+            long = element.coordinates[0]
+            lat = element.coordinates[1]
+            getWeatherData(lat, long)
         })
-        fireWeatherAPI(trailCoords)
     })
 }
 
@@ -51,26 +51,12 @@ function getTrailHeads() {
 //     })
 // }
 
-// probably did not need this but ahd it from OG project, but each set of coords in trailCoords
-// are in an array so just mapping through to grab each element
-function fireWeatherAPI (arr) {
-    let lat;
-    let long;
-    arr.map((element) => {
-      long = element[0];
-      lat = element[1];
-      getWeatherData(lat, long);
-    });
-  };
-
-
+// fire off weather api to get data per the lat and long of each trail, save it to the global.weather based on each long
   async function getWeatherData(lat, long) {
       const newWeatherAPIEndpoint = `${weatherAPI}${lat}%2C%20${long}?unitGroup=us&key=${WEATHERAPIKEY}&include=current`
     try {
         const value = await fetch(newWeatherAPIEndpoint)
-       // console.log('fired weather API');
         const weather = await value.json()
-
     
         global.hikeNow.weather[weather.longitude] = {
             longitude: weather.longitude,
