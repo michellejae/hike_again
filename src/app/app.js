@@ -7,8 +7,9 @@ import ngRoute from 'angular-route';
 //import trailService from '../services/trailDataService';
 import HomeCtrl from '../controller/home.controller'
 import homeService from '../services/homeService'
-//import AllTrailCtrl from '../controller/allTrails.controller';
-//import allTrailsService from '../services/allTrailsService';
+import AllTrailCtrl from '../controller/allTrails.controller';
+import allTrailsService from '../services/allTrailsService';
+
 
 //import '../style/app.css';
 
@@ -24,29 +25,30 @@ angular.module(MODULE_NAME, [ngRoute])
   //.controller('AppCtrl', AppCtrl)
   .controller('HomeCtrl', HomeCtrl)
   //.controller('TrailCtrl', TrailCtrl)
-  //.controller('AllTrailCtrl', AllTrailCtrl)
+  .controller('AllTrailCtrl', AllTrailCtrl)
   .service('homeService', homeService)
   //.service('trailService', trailService)
-  //.service('allTrailsService', allTrailsService)
+  .service('allTrailsService', allTrailsService)
 
   .config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {
+  //  $locationProvider.hashPrefix('');
     $routeProvider
       .when(`/`, {
         templateUrl: 'views/home.html',
         controller: 'HomeCtrl'
       })
-    //   .when(`/all`, {
-    //     templateUrl: `views/allTrails.html`,
-    //     controller: 'AllTrailCtrl'
-    //   })
+      .when('/boop', {
+        templateUrl: 'views/allTrails.html',
+        controller: 'AllTrailCtrl'
+      })
     //   .when(`/trail/:name`, {
     //     templateUrl: `views/trail.html`,
     //     controller: 'TrailCtrl'
     //   })
-    //   .otherwise({
-    //     templateUrl: `views/notFound.html`
-    //   })
-    $locationProvider.html5Mode(true);
+      .otherwise({
+        templateUrl: `views/notFound.html`
+      })
+   // $locationProvider.html5Mode(false)
   }])
 
 export default MODULE_NAME;

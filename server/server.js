@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false }));
 
 
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, '..', 'src/public')));
 
 
 // app.get('/api/hikeNow/all', (req, res) => {
@@ -48,7 +48,6 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 //     res.send('BOOOOP')
 //   })
   
-  // when i'm ready to connect to front end. not sure why i need this and app.use(express.static)
   app.get('/*', (req, res)=>{
     let options = {
       root: path.join(__dirname, '..', 'public')
