@@ -2,7 +2,6 @@ const fetch = require(`node-fetch`);
 
 const Trail = require('../db/models/Trails');
 const weatherConfig = require(`../../config/config.js`);
-const WEATHERAPIKEY = weatherConfig.weather.apiKey;
 const WEATHERAPIKEYTWO = weatherConfig.weather.apiKey2;
 
 let lat;
