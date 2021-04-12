@@ -133,17 +133,13 @@ app.get('/api/hikeNow/fakeData/trail/:name', (req, res) => {
 app.get('/api/hikeNow/fakeData', (req, res) => {
   return res.json(fakeGoodData)
 })
-
-// app.get('/', (req, res) => {
-//     res.send('BOOOOP')
-//   })
   
-  app.get('/*', (req, res)=>{
-    let options = {
-      root: path.join(__dirname, '..', 'public')
-    };
-    res.sendFile('index.html', options);
-  })
+  // app.get('/*', (req, res)=>{
+  //   let options = {
+  //     root: path.join(__dirname, '..', 'public')
+  //   };
+  //   res.sendFile('index.html', options);
+  // })
 
 
 app.listen(PORT, () => {
