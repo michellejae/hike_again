@@ -8,7 +8,7 @@ const WEATHERAPIKEY = weatherConfig.weather.apiKey;
 
 let lat;
 let long;
-
+ 
 
  const weatherAPI = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/`;
 
@@ -20,7 +20,7 @@ global.hikeNow = {};
 //global.hikeNow.weather = {};
 
 // fetch all trails from DB and store the coordinates in an array 
-function getTrailHeads() {
+function getTrailHeads() { 
     global.hikeNow.weather = {};
     return new Trail()
     .fetchAll()
@@ -72,7 +72,7 @@ function getTrailHeads() {
             sunrise: weather.currentConditions.sunrise,
             sunset: weather.currentConditions.sunset
         }
-        console.log(global.hikeNow.weather)
+       // console.log(global.hikeNow.weather)
     } catch (error) {
         console.log('ERR', error)
     }

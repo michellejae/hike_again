@@ -3,8 +3,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-//const fakeGoodData = require('./utilities/fakeGoodData');
-//const fakeAllData = require('./utilities/fakeData/fakeAllData');
+const fakeGoodData = require('./utilities/fakeData/fakeGoodData');
+const fakeAllData = require('./utilities/fakeData/fakeAllData');
 const Trail = require(`./db/models/Trails`);
 const { getTrails } = require('./routes/trails');
 const { getTrailHeads} = require('./utilities/weatherData.js');
@@ -12,7 +12,7 @@ const { updateTrailsWithRainKey } = require('./utilities/updateTrailsTableOnDb')
 const { getTrailKeys } = require('./utilities/rainDataUpdate');
 
 
-
+ 
 //CONSTANTS
 const PORT = process.env.PORT  || 3000;
 
@@ -25,20 +25,33 @@ app.use(express.urlencoded({extended: false }));
 app.use(express.static(path.join(__dirname, '..', 'src/public')));
 
 
-// app.get('/api/hikeNow/all', (req, res) => {
-//   return new Trail()
-//   .fetchAll()
-//   .then(allTrails => {
-//     allTrails = allTrails.toJSON()
-    
-//    // when returning to postman use this 
-//    return res.json(allTrails)
-//   })
-// })
 
-// app.get('/api/hikeNow/fakeData', (req, res) => {
-//     return res.json(fakeGoodData)
-//   })
+
+app.get('/api/hikeNow/all', (req, res) => {
+  return new Trail()
+  .fetchAll()
+  .then(allTrails => {
+    allTrails = allTrails.toJSON()
+    return allTrails
+  }).then(trails => {
+     trails.forEach(trail => {    
+      const trailWeather = global.hikeNow.weather[trail.weather]
+      trail.weather = trailWeather
+      const rainWeather = global.hikeNow.rain[trail.rain]
+      trail.rain = rainWeather
+      return trail
+    })
+    return trails
+  }).then(allTrails => { 
+    return res.json(allTrails)
+  }).catch(err => {
+    console.log(err)
+  })
+})  
+
+app.get('/api/hikeNow/fakeData', (req, res) => {
+    return res.json(fakeAllData)
+  })
 
     app.get('/api/hikeNow', (req, res) => {
       return res.send('it went through')
@@ -61,16 +74,16 @@ app.listen(PORT, () => {
    
     // IN THEORY WE SHOULD ONLY UPDATE THESE ONCE
     // put trails in db
-     //getTrails();
+    //getTrails();
     // add rain stations to trails db
     //updateTrailsWithRainKey()
   
 
     // fire off weahter api and save to global variable
-   //getTrailHeads();
+   // getTrailHeads();
   
     // fire off rain api and save to global variable
-    // getTrailKeys();
+   // getTrailKeys();
    
     // functions used when app is deployed to have set times to fire off weather and rain api's
    // timedRain();
