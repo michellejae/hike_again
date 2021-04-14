@@ -1,0 +1,10 @@
+.navbar-link:not(.is-arrowless)::after{
+    border-color: #4a4a4a;
+}
+
+.hero.is-primary .title{
+    margin: .5rem;
+}
+.hero.is-primary a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current){
+    color: #4a4a4a;
+}
