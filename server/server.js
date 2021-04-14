@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false }));
 
 
-// app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, '..', 'dist')));
 
 // read through the all trails request to understand how i'm sending data to FE
 app.get('/api/hikeNow/trail/:name', (req, res) => {
@@ -134,12 +134,12 @@ app.get('/api/hikeNow/fakeData', (req, res) => {
   return res.json(fakeGoodData)
 })
   
-  // app.get('/*', (req, res)=>{
-  //   let options = {
-  //     root: path.join(__dirname, '..', 'public')
-  //   };
-  //   res.sendFile('index.html', options);
-  // })
+  app.get('/*', (req, res)=>{
+    let options = {
+      root: path.join(__dirname, '..', 'dist')
+    };
+    res.sendFile('index.html', options);
+  })
 
 
 app.listen(PORT, () => {

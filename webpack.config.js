@@ -10,15 +10,15 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   // have to change from development to prodcution
-    mode: "production",
+    mode: "development",
     // everything from this page is where we will edit code (for front end). it all runs through here
-    entry: './src/app/app.js',
+    entry: '/src/app/app.js',
 
    // the eventual minimized and optimized code that webpack builds
     output: {
-        path: path.resolve(__dirname, 'public'),
-        filename: '[name].bundle.js'
-      //  chunkFilename: '[id].js'
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].bundle.js',
+        chunkFilename: '[id].js'
     },
     // if in production, source-map, unless developemnt
     // for some reason isProd is false evem though ENV == build 

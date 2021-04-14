@@ -11,7 +11,7 @@ import AllTrailCtrl from '../controller/allTrails.controller';
 import allTrailsService from '../services/allTrailsService';
 
 
-require('../sass/app.scss');
+// require('../sass/app.scss');
 
 // class AppCtrl {
 //   constructor() {
@@ -31,13 +31,14 @@ angular.module(MODULE_NAME, [ngRoute])
   .service('allTrailsService', allTrailsService)
 
   .config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {
-  //  $locationProvider.hashPrefix('');
+   $locationProvider.hashPrefix('');
     $routeProvider
       .when(`/`, {
         templateUrl: 'views/home.html',
         controller: 'HomeCtrl'
       })
       .when('/boop', {
+        // if i try to go to this route directly in URL it will not work, must do #/boop unless i enable html5mode to true. 
         templateUrl: 'views/allTrails.html',
         controller: 'AllTrailCtrl'
       })
@@ -48,7 +49,10 @@ angular.module(MODULE_NAME, [ngRoute])
       .otherwise({
         templateUrl: `views/notFound.html`
       })
-   // $locationProvider.html5Mode(false)
+      $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: true// if i do not type in false make sure to put a base in index file. read note in notion though
+ });
   }])
 
 export default MODULE_NAME;
