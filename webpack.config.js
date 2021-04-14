@@ -17,13 +17,12 @@ module.exports = {
    // the eventual minimized and optimized code that webpack builds
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].bundle.js',
-        chunkFilename: '[id].js'
+        filename: '[name].[contenthash].js',
+        chunkFilename: '[name].[id].js',
+        clean: true
     },
-    // if in production, source-map, unless developemnt
-    // for some reason isProd is false evem though ENV == build 
-    // so i am sitting the below for source-map to be the falsy value
-   // devtool: 'source-map',
+    // if in production, source-map, unless developemnt eval-source-map
+    devtool: 'source-map',
     module: {
         rules: [
             // BABEL/ JS loader
@@ -37,7 +36,7 @@ module.exports = {
                   }
                 }
               },
-            // CSS loader
+            // CSS and SASS loader
             {
                 test: /\.(sa|sc|c)ss$/,
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' ],
@@ -57,40 +56,45 @@ module.exports = {
     },
 
     plugins: [
-
+      // generates html file into /dist  based off the index.html in src. also adds in the bundle.js and chunk files. 
       new HtmlWebpackPlugin({
         template: './src/public/index.html',
         inject: 'body'
       }),
-      // generates a css file for every js file that imports css
-        new MiniCssExtractPlugin({
-            filename: 'css/[name].css',
-            chunkFilename: '[id].css',
-          }),
-          // new CopyPlugin({
-         
-          //   patterns: [
-          //     { from: __dirname + '/src/public',
-          //       to: './'
-          //       }
-          //   ],
-          // }),
+      // generates a css file for every js file that imports css. also does this for sass files cause i have it in loader. puts final css file into html. 
+      new MiniCssExtractPlugin({
+          filename: 'css/[name].css',
+          chunkFilename: '[id].css',
+        }),
+        // 
+      new CopyPlugin({
+        patterns: [
+          { from: __dirname + '/src/public/img',
+            to: path.join(__dirname, 'dist/img')
+            },
+            { from: __dirname + '/src/public/views',
+            to: path.join(__dirname, 'dist/views')
+            },
+        ],
+      }),
     ],
 
-    // i kept getting .txt files when i would do a build, this should take it off. 
+   
   optimization: {
-    // runtimeChunk: 'single',
-    // splitChunks: {
-    //   cacheGroups: {
-    //     vendor: {
-    //      test: /[\\/]node_modules[\\/]/,
-    //       name: 'vendors',
-    //       chunks: 'all',
+    // need to learn more about these two properties
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+         test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
 
-    //     },
-    //   },
-    // },
+        },
+      },
+    },
     minimize: true,
+     // i kept getting .txt files when i would do a build, this should take it off. 
     minimizer: [
       new TerserPlugin({
         terserOptions: {

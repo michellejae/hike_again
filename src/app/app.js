@@ -11,7 +11,7 @@ import AllTrailCtrl from '../controller/allTrails.controller';
 import allTrailsService from '../services/allTrailsService';
 
 
-// require('../sass/app.scss');
+require('../sass/app.scss');
 
 // class AppCtrl {
 //   constructor() {

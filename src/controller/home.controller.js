@@ -2,31 +2,31 @@ const HomeCtrl = [`$scope`, `homeService`, function ($scope, homeService){
 
 
   
-    // homeService.fetchTrails();
-    // $scope.trails = homeService.getTrails();
+    homeService.fetchTrails();
+    $scope.trails = homeService.getTrails();
   
-    // let t = true;
-    // let f = false;
+    let t = true;
+    let f = false;
   
-    // $scope.Metric = function () {
-    //   f = true;
-    //   t = false;
-    //   return f;
-    // }
+    $scope.Metric = function () {
+      f = true;
+      t = false;
+      return f;
+    }
     
-    // $scope.Imperial = function () {
-    //   t = true;
-    //   f = false;
-    //   return t;
-    // }
+    $scope.Imperial = function () {
+      t = true;
+      f = false;
+      return t;
+    }
   
-    // $scope.onM = function () {
-    //   return f;
-    // }
+    $scope.onM = function () {
+      return f;
+    }
   
-    // $scope.onI = function () {
-    //   return t;
-    // }
+    $scope.onI = function () {
+      return t;
+    }
   
   }]
   

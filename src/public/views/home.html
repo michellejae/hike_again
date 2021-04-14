@@ -1,3 +1,89 @@
-<div>WHAT UP HOME</div>
+<div class="main-container">
 
-<a href="/boop"> boop </a>
+    <section class="hero is-default is-bold is-primary">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+
+            <div class="navbar-brand">
+                <a href="../">
+                    <h1 class="title">hike<i class="fas fa-tree"></i>know</h1>
+                </a>
+            </div>
+            <div class="navbar-menu">
+                <div class="navbar-end">
+                    <div class="navbar navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link"></a>
+                        <div class="navbar-dropdown is-right">
+                            <a href="/all" class="navbar-item">
+                                All Trails
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+        <!-- Big ol' image -->
+        <figure class="image">
+            <img src="../img/oahu-hike-month-kuliouou-ridge-view.jpg" alt="Kuli'ou'ou Ridge View">
+        </figure>
+
+    </section>
+
+
+    <!-- Title section with Buttons-->
+    <h1 class="title has-text-centered">Go outside!</h1>
+    <h2 class="subtitle has-text-centered">These trails are all clear...</h2>
+
+    <div class="columns is-mobile is-centered">
+        <div class="column">
+            <div class="buttons has-addons is-centered is-bold">
+                <div ng-if="onI()" class="button is-success is-selected">m</div>
+                <div ng-if="onI()" ng-click="Metric()" class="button">km</div>
+                <div ng-if="onM()" ng-click="Imperial()" class="button">m</div>
+                <div ng-if="onM()" class="button is-info is-selected">km</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- 3 Columns of Trails tiles -->
+    <div class="columns is-centered">
+        <div ng-repeat="trail in trails" class="column">
+            <div class="card is-parent is-1">
+                <a ng-href="/trail/{{ trail.name }}">
+                    <article class="card is-child notification is-success">
+                        <div class="subtitle has-text-centered">{{trail.name}}</div>
+                        <div class="card-footer">
+                            <div class="card-footer-item">
+                                <span>
+                                    {{trail.length}} mi
+                                    <!-- <p ng-if="onM()">{{trail.length_km}} km</p> -->
+                                </span>
+                            </div>
+                            <div class="card-footer-item">
+                                <span>
+                                    {{trail.status}}
+                                </span>
+                            </div>
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- View All Trails button -->
+<div class="container">
+    <div class="content has-text-centered">
+        <a href="/all" class="button is-primary">View All Trails</a>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="content has-text-centered">
+        <a href="https://darksky.net/poweredby/">Powered by Dark Sky</a>
+    </div>
+</div>

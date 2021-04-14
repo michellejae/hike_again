@@ -1,6 +1,14 @@
 @charset "utf-8";
-// @import "../../node_modules/bulma/bulma.sass";
+@import "../../node_modules/bulma/bulma.sass";
 
-body {
-    background-color: red;
-}
+// partials
+@import './partials/variables.scss';
+// @import './partials/mixins.scss';
+@import './partials/base.scss';
+
+// components;
+//@import './components/header.scss';
+//@import './components/home.scss';
+@import './components/trail.scss';
+@import './components/alltrails.scss';
+
