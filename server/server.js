@@ -122,8 +122,8 @@ app.get('/api/hikeNow/all', (req, res) => {
 })  
 
 app.get('/api/hikeNow/fakeData/trail/:name', (req, res) => {
-  let name = req.params.name
-  return res.json(fakeSingleData)
+    let name = req.params.name
+    return res.json(fakeSingleData)
   })
 
   app.get('/api/hikeNow/fakeData/all', (req, res) => {
@@ -131,7 +131,7 @@ app.get('/api/hikeNow/fakeData/trail/:name', (req, res) => {
   })
 // home page only shows good trails, and this is the call from home on FE
 app.get('/api/hikeNow/fakeData', (req, res) => {
- return res.json(fakeGoodData)
+    return res.json(fakeGoodData)
 })
   
   // app.get('/*', (req, res)=>{

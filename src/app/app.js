@@ -37,7 +37,7 @@ angular.module(MODULE_NAME, [ngRoute])
         templateUrl: 'views/home.html',
         controller: 'HomeCtrl'
       })
-      .when('/boop', {
+      .when('/all', {
         // if i try to go to this route directly in URL it will not work, must do #/boop unless i enable html5mode to true. 
         templateUrl: 'views/allTrails.html',
         controller: 'AllTrailCtrl'
