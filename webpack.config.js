@@ -3,33 +3,27 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-//const TerserPlugin = require("terser-webpack-plugin");
-// 
 const CopyPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
 
 
-const isDev = process.env.NODE_ENV === 'development'
-
-
 module.exports = {
   // have to change from development to prodcution
-    mode: isDev ? 'development' : 'production',
+    mode: "production",
     // everything from this page is where we will edit code (for front end). it all runs through here
     entry: './src/app/app.js',
 
    // the eventual minimized and optimized code that webpack builds
     output: {
         path: path.resolve(__dirname, 'public'),
-        filename: '[name].bundle.js',
-      //  chunkFilename: '[name].[contenthash].js' 
+        filename: '[name].bundle.js'
+      //  chunkFilename: '[id].js'
     },
     // if in production, source-map, unless developemnt
     // for some reason isProd is false evem though ENV == build 
     // so i am sitting the below for source-map to be the falsy value
-    devtool: 'eval-source-map',
-
+   // devtool: 'source-map',
     module: {
         rules: [
             // BABEL/ JS loader
@@ -45,8 +39,8 @@ module.exports = {
               },
             // CSS loader
             {
-                test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', ],
+                test: /\.(sa|sc|c)ss$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' ],
             },
             // ASSET loader
             {
@@ -55,7 +49,7 @@ module.exports = {
             },
             // HTML loader
             {
-                test: /\.html$/i,
+                test: /\.html$/,
                 loader: 'html-loader',
             }
 
@@ -63,27 +57,39 @@ module.exports = {
     },
 
     plugins: [
+
+      new HtmlWebpackPlugin({
+        template: './src/public/index.html',
+        inject: 'body'
+      }),
       // generates a css file for every js file that imports css
         new MiniCssExtractPlugin({
             filename: 'css/[name].css',
             chunkFilename: '[id].css',
           }),
-
-        new HtmlWebpackPlugin({
-            template: './src/public/index.html',
-            inject: 'body'}),
-
-        // new CopyPlugin({
-        //   patterns: [
-        //     { from: __dirname + '/src/public',
-        //       to: './public/index.html',
-        //       toType: "template"}
-        //   ],
-        // })
+          // new CopyPlugin({
+         
+          //   patterns: [
+          //     { from: __dirname + '/src/public',
+          //       to: './'
+          //       }
+          //   ],
+          // }),
     ],
 
     // i kept getting .txt files when i would do a build, this should take it off. 
   optimization: {
+    // runtimeChunk: 'single',
+    // splitChunks: {
+    //   cacheGroups: {
+    //     vendor: {
+    //      test: /[\\/]node_modules[\\/]/,
+    //       name: 'vendors',
+    //       chunks: 'all',
+
+    //     },
+    //   },
+    // },
     minimize: true,
     minimizer: [
       new TerserPlugin({
@@ -96,15 +102,6 @@ module.exports = {
       }),
     ],
   },
-
-    // uncomment from time to time to see if duplicate dependencies are actually being bundled
-    // optimization: {
-
-    //     splitChunks: {
-    //       chunks: 'all',
-    //     },
-    //   },
-    // will need to set proxy to backend
     devServer: {
         contentBase: './src/public',
         watchContentBase: true, 

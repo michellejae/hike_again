@@ -1,7 +1,9 @@
 const HomeCtrl = [`$scope`, `homeService`, function ($scope, homeService){
+
+
   
-    homeService.fetchTrails();
-    $scope.trails = homeService.getTrails();
+    // homeService.fetchTrails();
+    // $scope.trails = homeService.getTrails();
   
     // let t = true;
     // let f = false;
