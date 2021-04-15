@@ -23,7 +23,9 @@ const trailService = ['$http', function ($http) {
       finalTrail.rain = newSingleTrail.rain,
       finalTrail.weather.wind_kph = kph,
       finalTrail.length_km = km,
-      finalTrail.elev_range_m = elev_range_m
+      finalTrail.elev_range_m = elev_range_m,
+      finalTrail.sunrise = newSingleTrail.weather.sunrise,
+      finalTrail.sunset = newSingleTrail.weather.sunset
       return newSingleTrail;
     }).then(result =>{
       this.setStatus(result);
