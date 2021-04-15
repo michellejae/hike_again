@@ -3,7 +3,7 @@ const TrailCtrl = [`$scope`,`$routeParams`, `trailService`, `NgMap`,
 function ($scope, $routeParams, trailService ) {
 
   let nameParams = $routeParams.name;
-  let navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+  let navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('#menuToggle'), 0);
   
   let t = true;
   let f = false;
