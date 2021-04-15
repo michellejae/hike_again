@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false }));
 
 
-// app.use(express.static(path.join(__dirname, '..', 'dist')));
+app.use(express.static(path.join(__dirname, '..', 'dist')));
 
 // read through the all trails request to understand how i'm sending data to FE
 app.get('/api/hikeNow/trail/:name', (req, res) => {
@@ -131,15 +131,16 @@ app.get('/api/hikeNow/fakeData/trail/:name', (req, res) => {
   })
 // home page only shows good trails, and this is the call from home on FE
 app.get('/api/hikeNow/fakeData', (req, res) => {
+  console.log(global.hikeNow.rain)
     return res.json(fakeGoodData)
 })
   
-  // app.get('/*', (req, res)=>{
-  //   let options = {
-  //     root: path.join(__dirname, '..', 'dist')
-  //   };
-  //   res.sendFile('index.html', options);
-  // })
+  app.get('/*', (req, res)=>{
+    let options = {
+      root: path.join(__dirname, '..', 'dist')
+    };
+    res.sendFile('index.html', options);
+  })
 
 
 app.listen(PORT, () => {

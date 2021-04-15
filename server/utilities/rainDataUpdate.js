@@ -26,7 +26,7 @@ function getTrailKeys() {
         result.map(trail => {
             keySet.add(trail.rain) // add each key to a set, since there are duplicates only one of each will be added
         })
-        singleOutKeys(keySet)
+       singleOutKeys(keySet)
     }).catch(err => console.log('err on getting keys', err))
 }
 

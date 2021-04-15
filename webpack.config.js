@@ -22,7 +22,7 @@ module.exports = {
         clean: true
     },
     // if in production, source-map, unless developemnt eval-source-map
-    devtool: 'source-map',
+    //devtool: 'source-map',
     module: {
         rules: [
             // BABEL/ JS loader

@@ -3,7 +3,9 @@ const TrailCtrl = [`$scope`,`$routeParams`, `trailService`, `NgMap`,
 function ($scope, $routeParams, trailService ) {
 
   let nameParams = $routeParams.name;
+  //let navBarBurger = document.querySelector('#menuToggle')
   let navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('#menuToggle'), 0);
+  //console.log(navBarBurger)
   
   let t = true;
   let f = false;
@@ -27,8 +29,9 @@ function ($scope, $routeParams, trailService ) {
   $scope.onI = function () {
     return t;
   }
+
   $scope.burgerDrop = function () {
-    let navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    let navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('#menuToggle'), 0);
     if(navbarBurgers.length > 0) {
       navbarBurgers.forEach(element => {
         element.addEventListener('click', function() {
@@ -40,6 +43,12 @@ function ($scope, $routeParams, trailService ) {
       });
     }
   }
+
+  // $scope.burgerDrop = function () {
+  //   navBarBurger.addEventListener('click', function() {
+  //     this.classList.toggle('is-active')
+  //   })
+  // }
 
   trailService.getSingleTrail(nameParams)
   .then(updatedTrail => {
