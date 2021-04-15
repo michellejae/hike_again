@@ -1,0 +1,117 @@
+<div class="main-container">
+
+
+    <section class="hero is-default is-bold is-primary">
+      <nav class="navBar" role="navigation">
+        <a href="../" class="navbar-item">
+          <h1 class="title">hike<i class="fas fa-tree"></i>know</h1>
+        </a>
+        <div id="menuToggle">
+          <input type="checkbox" />
+          <span></span>
+          <span></span>
+          <span></span>
+          <ul id="menu">
+            <a href="/">
+              <li>Home</li>
+            </a>
+            <br />
+            <a href="/all">
+              <li>All Trails</li>
+            </a>
+          </ul>
+        </div>
+      </nav>
+    </section>
+  
+    <div class="sub-head-container">
+      <div class="sub-head">
+        <div class="trailName">{{trail.name}} </div>
+        <div ng-if="onI()">{{trail.weather.temp}}° F</div>
+        <div ng-if="onM()">{{trail.weather.temp_c}}° C</div>
+      </div>
+    </div>
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <div class="mappy" map-lazy-load="https://maps.googleapis.com/maps/api/js" map-lazy-load-params="{{googleMapsUrl}}">
+      <ng-map center="{{trail.coordinates[1]}},{{trail.coordinates[0]}}" zoom="13">
+        <marker position="{{trail.coordinates[1]}},{{trail.coordinates[0]}}" animation="Animation.DROP" centered="true"></marker>
+      </ng-map>
+    </div>
+    <!--///////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- <div class="{{trail.status}}"> -->
+      <div class="container has-text-centered hike-report-container ">
+        <div class="container hike-status-container is-bold is-3">
+          <div ng-if="trail.status === 'GOOD'" class="{{trail.status}}"> Good!</div>
+          <div ng-if="trail.status === 'CAUTION'" class="{{trail.status}}"> Caution!</div>
+          <div ng-if="trail.status === 'DANGER'" class="{{trail.status}}"> Danger!</div>
+        <!-- </div> -->
+      </div>
+    </div>
+    <!-- <div class="{{trail.status}}">
+        <div class="container has-text-centered hike-report-container">
+          <div class="container hike-status-container">
+            <div class="{{trail.status}}"> {{trail.status}}</div>
+          </div>
+        </div>
+      </div> -->
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////////-->
+    <div class="hike-timestamp-container">
+      <div class="hike-timestamp-data">{{trail.weather.observation_time}}</div>
+    </div>
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////////-->
+    <div class="infoContainer">
+      <div class="container has-text-centered">
+        <div class="card">
+          <div class="weatherTrio">
+            <div>
+              <div class="weather-summary">{{trail.weather.summary}}</div>
+  
+            </div>
+            <div ng-if="onI()">
+              <img src="https://png.icons8.com/ultraviolet/30/000000/windy-weather.png">{{trail.weather.windSpeed}} mph</div>
+            <div ng-if="onM()">
+              <img src="https://png.icons8.com/ultraviolet/30/000000/windy-weather.png">{{trail.weather.wind_kph}} kph</div>
+            <div>
+              <img src="https://png.icons8.com/ultraviolet/30/000000/rain.png">{{trail.rain.rainfall}} in
+            </div>
+          </div>
+  
+          <footer class="card-footer">
+            <div class="card-footer-item">
+              <img src="https://png.icons8.com/office/30/000000/sunrise.png">6:45AM
+            </div>
+            <div class="card-footer-item">
+              <img src="https://png.icons8.com/office/30/000000/sunset.png">7:00PM
+            </div>
+          </footer>
+        </div>
+      </div>
+  
+      <!-- ////////////////////////////////////////////////////////////////////////////////////////////-->
+      <div class="container">
+        <div class="card">
+          <div class=" hike-details-container">
+            <div ng-if="onI()" class="temp-data">{{trail.length_m}} mi</div>
+            <div ng-if="onM()" class="temp-data">{{trail.length_km}} km</div>
+            <div ng-if="onI()" class="hike-detail-elev">{{trail.elev}} ft</div>
+            <div ng-if="onM()" class="hike-detail-elev">{{trail.elev_range_m}} m</div>
+            <div class="hike-detail-difficulty">{{trail.standard}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="columns is-mobile is-centered" id="conBttn">
+      <div class="column"></div>
+      <div class="column">
+        <div class="buttons has-addons is-centered">
+          <span ng-if="onI()" class="button is-success is-selected">mi</span>
+          <span ng-if="onI()" ng-click="Metric()" class="button">km</span>
+          <span ng-if="onM()" ng-click="Imperial()" class="button">mi</span>
+          <span ng-if="onM()" class="button is-info is-selected">km</span>
+        </div>
+      </div>
+      <div class="column"></div>
+    </div>
+  
+    <a class="urlIcon" href="https://icons8.com">Icon pack by Icons8</a>

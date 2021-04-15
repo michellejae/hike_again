@@ -1,10 +1,10 @@
 import angular from 'angular';
 import ngRoute from 'angular-route';
-//import NgMap from 'ngmap';
+import NgMap from 'ngmap';
 
 
-//import TrailCtrl from '../controller/trail.controller';
-//import trailService from '../services/trailDataService';
+import TrailCtrl from '../controller/trail.controller';
+import trailService from '../services/trailDataService';
 import HomeCtrl from '../controller/home.controller'
 import homeService from '../services/homeService'
 import AllTrailCtrl from '../controller/allTrails.controller';
@@ -21,13 +21,13 @@ require('../sass/app.scss');
 
 const MODULE_NAME = 'app';
 
-angular.module(MODULE_NAME, [ngRoute])
+angular.module(MODULE_NAME, [ngRoute, NgMap])
   //.controller('AppCtrl', AppCtrl)
   .controller('HomeCtrl', HomeCtrl)
-  //.controller('TrailCtrl', TrailCtrl)
+  .controller('TrailCtrl', TrailCtrl)
   .controller('AllTrailCtrl', AllTrailCtrl)
   .service('homeService', homeService)
-  //.service('trailService', trailService)
+  .service('trailService', trailService)
   .service('allTrailsService', allTrailsService)
 
   .config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {
@@ -42,10 +42,10 @@ angular.module(MODULE_NAME, [ngRoute])
         templateUrl: 'views/allTrails.html',
         controller: 'AllTrailCtrl'
       })
-    //   .when(`/trail/:name`, {
-    //     templateUrl: `views/trail.html`,
-    //     controller: 'TrailCtrl'
-    //   })
+      .when(`/trail/:name`, {
+        templateUrl: `views/trail.html`,
+        controller: 'TrailCtrl'
+      })
       .otherwise({
         templateUrl: `views/notFound.html`
       })
