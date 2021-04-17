@@ -7,7 +7,7 @@ const homeService = [`$http`, function ($http) {
     }
 
     this.fetchTrails = function () {
-      return $http.get('/api/hikeNow/fakeData')
+      return $http.get('/api/hikeNow')
       .then(data => {
         return data.data
       }).then(goodTrails => {

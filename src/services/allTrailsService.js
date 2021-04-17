@@ -11,7 +11,7 @@ const allTrailService = ['$http', function ($http) {
   }
 
   this.fetchAllTrails = function () {
-    return $http.get('/api/hikeNow/fakeData/all')
+    return $http.get('/api/hikeNow/all')
     .then(data => {
       data.data.map(element => {
         allTrails.push(element);

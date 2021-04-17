@@ -12,6 +12,7 @@ const { updateTrailsWithRainKey } = require('./utilities/updateTrailsTableOnDb')
 const { getTrailHeads} = require('./utilities/weatherData.js');
 const { getTrailKeys } = require('./utilities/rainDataUpdate');
 const { randomGoodTrail } = require('./utilities/helper');
+const { timedWeather, timedRain } = require('./utilities/nodeSchedule');
 
 
  
@@ -131,7 +132,6 @@ app.get('/api/hikeNow/fakeData/trail/:name', (req, res) => {
   })
 // home page only shows good trails, and this is the call from home on FE
 app.get('/api/hikeNow/fakeData', (req, res) => {
-  console.log(global.hikeNow.rain)
     return res.json(fakeGoodData)
 })
   

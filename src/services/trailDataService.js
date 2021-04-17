@@ -5,7 +5,7 @@ const trailService = ['$http', function ($http) {
     let finalTrail = {}
   
   this.getSingleTrail = function (name) {
-    return $http.get(`/api/hikeNow/fakeData/trail/${name}`)
+    return $http.get(`/api/hikeNow/trail/${name}`)
     .then(singleTrail => {
       let newSingleTrail = singleTrail.data;
       let kph = (newSingleTrail.weather.windSpeed * 1.60934).toFixed(2);

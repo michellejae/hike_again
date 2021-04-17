@@ -1,0 +1,156 @@
+<div class="main-container">
+
+    <section class="hero is-default is-bold is-primary">
+        <nav class="navBar" role="navigation">
+          <a href="../" class="navbar-item">
+            <h1 class="title">hike<i class="fas fa-tree"></i>know</h1>
+          </a>
+          <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul id="menu">
+              <a href="/all">
+                <li>All Trails</li>
+              </a>
+            </ul>
+          </div>
+        </nav>
+      </section>
+
+  <!-- Big ol' image -->
+  <figure class="image">
+    <img src="../img/oahu-hike-month-kuliouou-ridge-view.jpg" alt="Kuli'ou'ou Ridge View">
+  </figure>
+
+  <!-- Title section with Buttons-->
+  <h1 class="title has-text-centered">Go outside!</h1>
+  <h2 class="subtitle has-text-centered">These trails are all clear...</h2>
+
+  <div class="columns is-mobile is-centered">
+    <div class="column"></div>
+    <div class="column">
+      <div class="buttons has-addons is-centered is-bold">
+        <div ng-if="onI()" class="button is-success is-selected">m</div>
+        <div ng-if="onI()" ng-click="Metric()" class="button">km</div>
+        <div ng-if="onM()" ng-click="Imperial()" class="button">m</div>
+        <div ng-if="onM()" class="button is-info is-selected">km</div>
+      </div>
+      <!-- Maybe add All Trails button at top -->
+      <!-- <div class="column">
+          <a href="/all" class="button is-primary">Trails</a>
+        </div> -->
+    </div>
+    <div class="column"></div>
+  </div>
+
+  <!-- 3 Columns of Trails tiles -->
+  <div class="columns is-centered">
+    <div ng-repeat="trail in trails" class="column">
+      <div class="card is-parent is-1">
+        <a ng-href="/trail/{{ trail.name }}">
+          <article class="card is-child notification is-success">
+            <div class="subtitle has-text-centered">{{trail.name}}</div>
+            <div class="card-footer">
+              <div class="card-footer-item">
+                <span>
+                  <p ng-if="onI()">{{trail.length}} mi</p>
+                  <p ng-if="onM()">{{trail.length_km}} km</p>
+                </span>
+              </div>
+              <div class="card-footer-item">
+                <span>
+                  {{trail.status}}
+                </span>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- View All Trails button -->
+<div class="container">
+  <div class="content has-text-centered">
+    <a href="/all" class="button is-primary">View All Trails</a>
+  </div>
+</div>
+</div>
+<br>
+<div class="container">
+  <div class="content has-text-centered">
+    <a href="https://www.visualcrossing.com/weather-data" >Powered by Visual Crossing Weather</a>
+  </div>
+</div>
+<div class="container">
+  <div class="content has-text-centered">
+    <a href="https://www.accuweather.com/" >Powered by AccuWeather</a>
+  </div>
+</div>
+
+
+
+<!-- Bulma Carousel - on hold! -->
+<!-- <div class='carousel carousel-animated carousel-animate-slide' data-autoplay="true">
+    <div class='carousel-container'>
+      <div class='carousel-item has-background is-active'>
+        <img class="is-background" src="http://honolulumagazine-images.dashdigital.com/images/2017/12-17/oahu-hike-month-kuliouou-ridge-view.jpg?ver=1511836570" alt="Kuliʻouʻou Ridge Trail" width="640" height="310" />
+        <div class="title">Kuliʻouʻou Ridge Trail</div>
+      </div>
+      <div class='carousel-item has-background'>
+        <img class="is-background" src="http://honolulumagazine-images.dashdigital.com/images/2018/02-18/hike-we-like-kealia-trail-view.jpg?ver=1517529316" alt="Keālia Trail" width="640" height="310" />
+        <div class="title">Keālia Trail</div>
+      </div>
+      <div class='carousel-item has-background'>
+        <img class="is-background" src="http://honolulumagazine-images.dashdigital.com/images/2017/11-17/hike-of-the-month-judd-trail-jackass-ginger-pool.jpg?ver=1509592826" alt="Judd Trail" width="640" height="310" />
+        <div class="title">Judd Trail</div>
+      </div>
+    </div>
+    <div class="carousel-navigation is-centered">
+      <div class="carousel-nav-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+      </div>
+      <div class="carousel-nav-right">
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div> -->
+
+
+<!-- Backup slideshow carousel : Cindy still working on this! -->
+<!-- <div class="slideshow-wrapper">
+    <div class="slideshow-container">
+      <!-- Full-width images with number and caption text -->
+<!-- <div class="trail-slides fade">
+        <div class="numbertext">1 / 3</div>
+        <img src="http://honolulumagazine-images.dashdigital.com/images/2017/12-17/oahu-hike-month-kuliouou-ridge-view.jpg?ver=1511836570"
+          alt="Kuliʻouʻou Ridge Trail">
+        <div class="slideshow-caption-text">Kuliʻouʻou Ridge Trail</div>
+      </div>
+
+      <div class="trail-slides fade">
+        <div class="numbertext">2 / 3</div>
+        <img src="http://honolulumagazine-images.dashdigital.com/images/2018/02-18/hike-we-like-kealia-trail-view.jpg?ver=1517529316"
+          alt="Keālia Trail">
+        <div class="slideshow-caption-text">Keālia Access Road and Trail</div>
+      </div>
+
+      <div class="trail-slides fade">
+        <div class="numbertext">3 / 3</div>
+        <img src="http://honolulumagazine-images.dashdigital.com/images/2017/11-17/hike-of-the-month-judd-trail-jackass-ginger-pool.jpg?ver=1509592826"
+          alt="Judd Trail">
+        <div class="slideshow-caption-text">Judd Trail</div>
+      </div>
+
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+      <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+      </div>
+    </div><!-- closing slideshow container -->
+<!-- </div>  -->

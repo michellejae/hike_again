@@ -1,0 +1,195 @@
+<div class="main-container">
+    <!-- Header -->
+    <section class="hero is-default is-bold is-primary">
+        <nav class="navBar" role="navigation">
+          <a href="../" class="navbar-item">
+            <h1 class="title">hike<i class="fas fa-tree"></i>know</h1>
+          </a>
+          <div id="menuToggle">
+            <input type="checkbox" />
+            <span></span>
+            <span></span>
+            <span></span>
+            <ul id="menu">
+              <a href="/">
+                <li>Home</li>
+              </a>
+              <br />
+              <a href="/all">
+                <li>All Trails</li>
+              </a>
+            </ul>
+          </div>
+        </nav>
+      </section>
+    
+    <!-- Body -->
+      <div class="columns is-gapless">
+    
+    <!-- Map -->
+        <div class="column">
+          <!-- <div class="container is-narrow"> -->
+    
+            <div class="allMap" map-lazy-load="https://maps.googleapis.com/maps/api/js"
+            map-lazy-load-params="{{googleMapsUrl}}">
+            <ng-map center="21.467084,-158.004515" zoom="9.4">
+              <marker ng-repeat="t in trailHeads" position="{{t.coordinates[1]}},{{t.coordinates[0]}}" title="{{t.trailname}}" id="{{t.id}}" on-click="showInfo(t.trailname)" animation="Animation.DROP" centered="true"></marker>      
+            </ng-map>
+          </div>
+        <!-- </div> -->
+    
+    <!-- Selected Hike section -->
+          <div class="section">
+            <h1 class="title">Where to, gumshoe?</h1>
+            <h2 class="subtitle">Select a hike from the map or list</h2>
+            <hr>
+            <div class="field has-addons">
+              <p class="control is-expanded">
+                <input ng-model="test" type="text" class="input" placeholder="Or find a hike here...">
+              </p>
+            </div>
+          </div>
+    
+    
+    <!-- Trail TILE will show up when selected on map -->
+          <div class="columns">
+            <div class="column">
+                <div id="selectedTile" class="tile is-centered" ng-if="selected()">
+                    <div class="tile is-parent" ng-if="selectedHike.status === 'GOOD'">
+                      <a ng-href="/trail/{{selectedHike.trailname}}">
+                        <article class="tile is-child box notification is-success is-bold">
+                          <h1 class="subtitle has-text-centered">{{selectedHike.trailname}}</h1>
+                          <div class="card-footer">
+                            <div class="card-footer-item">
+                                <span ng-if="onI()" >{{selectedHike.length_m}} mi</span>
+                                <span ng-if="onM()" >{{selectedHike.length_km}} km</span>
+                              </div>
+                            <div class="card-footer-item">
+                              <span>
+                                {{selectedHike.status}}
+                              </span>
+                            </div>
+                          </div>
+                        </article>
+                      </a>
+                    </div>
+              
+                    <div class="tile is-parent" ng-if="selectedHike.status === 'CAUTION'">
+                      <a ng-href="/trail/{{selectedHike.trailname}}">
+                        <article class="tile is-child box notification is-warning">
+                        <h1 class="subtitle">{{selectedHike.trailname}}</h1>            
+                          <div class="card-footer">
+                            <div class="card-footer-item">
+                              <span ng-if="onI()" >{{selectedHike.length_m}} mi</span>
+                              <span ng-if="onM()" >{{selectedHike.length_km}} km</span>
+                            </div>
+                            <div class="card-footer-item">
+                              <span>
+                                {{selectedHike.status}}
+                              </span>
+                            </div>
+                          </div>
+                        </article>
+                      </a>
+                    </div>
+              
+                    <div class="tile is-parent" ng-if="selectedHike.status === 'DANGER'">
+                      <a ng-href="/trail/{{selectedHike.trailname}}">          
+                        <article class="tile is-child box notification is-danger">
+                          <h1 class="subtitle">{{selectedHike.trailname}}</h1>              
+                            <div class="card-footer">
+                              <div class="card-footer-item">
+                                <span>
+                                  {{selectedHike.length_m}} mi
+                                </span>
+                              </div>
+                              <div class="card-footer-item">
+                                <span>
+                                  {{selectedHike.status}}
+                                </span>
+                              </div>
+                            </div>
+                          </article>
+                        </a>
+                      </div>
+              
+                      <div class="tile is-parent" ng-if="selectedHike.status === 'UNKNOWN'">
+                        <a ng-href="/trail/{{selectedHike.trailname}}">
+                          <article class="tile is-child box notification is-outlined">
+                            <h1 class="subtitle">{{selectedHike.trailname}}</h1>                              
+                              <div class="card-footer">
+                                <div class="card-footer-item">
+                                  <span ng-if="onI()" >{{selectedHike.length_m}} mi</span>
+                                  <span ng-if="onM()" >{{selectedHike.length_m}} km</span>
+                                </div>
+                                <div class="card-footer-item">
+                                  <span>
+                                    Condition: {{selectedHike.status}}
+                                  </span>
+                                </div>
+                              </div>
+                            </article>
+                          </a>
+                        </div>
+                  </div>
+            </div>
+          </div>
+    
+    
+        </div> <!--closing map column-->
+    
+    
+    <!-- LIST (table) of All trails -->
+    <div class="column">
+    
+    <!-- LIST Title -->
+    <div class="card">
+        <header class="card-header">
+          <h1 class="card-header-title is-1 is-centered">Oahu Trails</h1>
+        </header>
+    <!-- Toggle m/km buttons -->
+          <div class="buttons has-addons">
+              <span ng-if="onI()" class="button is-success is-selected">m</span>
+              <span ng-if="onI()" ng-click="Metric()" class="button">km</span>
+              <span ng-if="onM()" ng-click="Imperial()" class="button">m</span>
+              <span ng-if="onM()" class="button is-info is-selected">km</span>
+          </div>
+    
+    <!-- More options arrow (could be used for filtering regions) -->
+          <!-- <a href="#" class="card-header-icon" aria-label="more options">
+            <span class="icon">
+              <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </a> -->
+        
+    
+    <!-- Trail list -->
+          
+          <div class="card-table">
+            <div class="content">
+              <table class="table is-fullwidth is striped">
+                <tbody>
+                  <tr ng-repeat= "trail in trails | filter : test">
+                    <td><a href="/trail/{{trail.trailname}}">{{trail.trailname}}</a></td>
+                    <td ng-if="onI()"><a href="/trail/{{trail.trailname}}">{{trail.length_m}} mi</a></td>
+                    <td ng-if="onM()"><a href="/trail/{{trail.trailname}}">{{trail.length_km}} km</a></td>
+                    <td ng-if="trail.status === 'GOOD'"><a class="button is-success" href="/trail/{{trail.trailname}}">Good!</a></td>
+                    <td ng-if="trail.status === 'CAUTION'"><a class="button is-warning" href="/trail/{{trail.trailname}}">Caution!</a></td>
+                    <td ng-if="trail.status === 'DANGER'"><a class="button is-danger" href="/trail/{{trail.trailname}}">Danger!</a></td>
+                    <td ng-if="trail.status === 'UNKNOWN'"><a class="button is-outlined" href="/trail/{{trail.trailname}}">Unknown</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    <!-- Footer -->
+        <footer class="cardFooter">
+          <a href="/all/#">Back to Top</a>
+        </footer>
+      </div>
+    </div> 
+      
+        
+    </div>
+    

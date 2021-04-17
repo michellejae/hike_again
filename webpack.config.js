@@ -10,7 +10,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   // have to change from development to prodcution
-    mode: "development",
+    mode: "production",
     // everything from this page is where we will edit code (for front end). it all runs through here
     entry: '/src/app/app.js',
 
@@ -82,7 +82,7 @@ module.exports = {
    
   optimization: {
     // need to learn more about these two properties
-    runtimeChunk: 'single',
+   runtimeChunk: 'single',
     splitChunks: {
       cacheGroups: {
         vendor: {
@@ -106,17 +106,17 @@ module.exports = {
       }),
     ],
   },
-    devServer: {
-        contentBase: './src/public',
-        watchContentBase: true, 
-        port: 8080,
-        proxy: {
-          '/api' : {
-            target: 'http://localhost:3000',
-            secure: false
-          }
-        }
-      },
+    // devServer: {
+    //     contentBase: './src/public',
+    //     watchContentBase: true, 
+    //     port: 8080,
+    //     proxy: {
+    //       '/api' : {
+    //         target: 'http://localhost:3000',
+    //         secure: false
+    //       }
+    //     }
+    //   },
 
 }
 
