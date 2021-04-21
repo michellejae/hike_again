@@ -1,8 +1,8 @@
 const fetch = require(`node-fetch`);
 
 const Trail = require('../db/models/Trails');
-const weatherConfig = require(`../../config/config.js`);
-const WEATHERAPIKEYTWO = weatherConfig.weather.apiKey2;
+const WEATHERAPIKEYTWO = process.env.WEATHER_TWO
+
 
 let lat;
 let long;
@@ -18,6 +18,7 @@ global.hikeNow.rain = {};
 
 // fetch all trails and get all rain keys (there are a lot of duplicates)
 function getTrailKeys() { 
+    console.log('rain data')
     const keySet = new Set()
     return new Trail()
     .fetchAll()
@@ -26,8 +27,8 @@ function getTrailKeys() {
         result.map(trail => {
             keySet.add(trail.rain) // add each key to a set, since there are duplicates only one of each will be added
         })
-       singleOutKeys(keySet)
-    }).catch(err => console.log('err on getting keys', err))
+      singleOutKeys(keySet)
+    }).catch(err => console.log('rainData: err on getting keys from DB', err))
 }
 
 function singleOutKeys(set){
@@ -56,7 +57,7 @@ function singleOutKeys(set){
             }
         })
     } catch (error) {
-        console.log('ERR', error)
+        console.log('rainApi: error on calling rainAPI', error)
     }
 
   }

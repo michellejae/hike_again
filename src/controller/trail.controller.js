@@ -1,4 +1,4 @@
-const MAPKEY = require('../../config/config');
+const MAPKEY = 'AIzaSyAUGGgPrTK8muD5nJNGD0Twq9ZXGby8u7k';
 const TrailCtrl = [`$scope`,`$routeParams`, `trailService`, `NgMap`,
 function ($scope, $routeParams, trailService ) {
 
@@ -20,7 +20,7 @@ function ($scope, $routeParams, trailService ) {
     t = true;
     f = false;
     return t;
-  }
+  } 
 
   $scope.onM = function () {
     return f;
@@ -55,7 +55,7 @@ function ($scope, $routeParams, trailService ) {
     $scope.trail = updatedTrail
   })
 
-  $scope.googleMapsUrl=`https://maps.googleapis.com/maps/api/js?key=${MAPKEY.map.key}&callback=initMap`;
+  $scope.googleMapsUrl=`https://maps.googleapis.com/maps/api/js?key=${MAPKEY}&callback=initMap`;
 
   
 }]

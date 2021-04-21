@@ -1,5 +1,3 @@
-// Update with your config settings.
-const config = require(`../config/config`);
 const path = require('path');
 
 module.exports = {
@@ -8,9 +6,9 @@ module.exports = {
     client: 'pg',
     connection: {
       host : '127.0.0.1',
-      user : config.database.user,
-      password : config.database.password,
-      database : config.database.database,
+      user : process.env.DB_USER,
+      password : process.env.DB_PASS,
+      database : process.env.DB_NAME,
       charset: 'utf8'
     },
     migrations: {
@@ -39,19 +37,21 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
+      host : '127.0.0.1',
+      user : process.env.DB_USER,
+      password : process.env.DB_PASS,
+      database : process.env.DB_NAME,
+      charset: 'utf8'
     },
     migrations: {
-      tableName: 'knex_migrations'
+      directory: path.join(__dirname, 'knex/migrations')
+    
+    },
+    seeds: {
+      directory: path.join(__dirname, 'knex/seeds')
     }
-  }
+  },
 
 };

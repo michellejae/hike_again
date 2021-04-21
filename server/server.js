@@ -1,6 +1,7 @@
 //MODULES
 const express = require('express');
 const app = express();
+require('dotenv').config()
 const path = require('path');
 
 const fakeGoodData = require('./utilities/fakeData/fakeGoodData');
@@ -145,22 +146,23 @@ app.get('/api/hikeNow/fakeData', (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`SERVER IS LISTENING ON ${PORT}`);
+  
    
     // IN THEORY WE SHOULD ONLY UPDATE THESE ONCE
     // put trails in db
-    //getTrails();
+     //getTrails();
     // add rain stations to trails db
     //updateTrailsWithRainKey()
   
 
     // fire off weahter api and save to global variable
-    //getTrailHeads();
+     //getTrailHeads();
   
     // fire off rain api and save to global variable
-    //getTrailKeys();
+      //getTrailKeys();
    
     // functions used when app is deployed to have set times to fire off weather and rain api's
-   // timedRain();
+    //timedRain();
     //timedWeather();
   
     // additional function for the total rain data per station over 24 hours

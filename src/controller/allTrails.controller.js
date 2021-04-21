@@ -1,4 +1,4 @@
-const MAPKEY = require('../../config/config');
+const MAPKEY = 'AIzaSyAUGGgPrTK8muD5nJNGD0Twq9ZXGby8u7k';
 const AllTrailsCtrl = ['$scope','allTrailsService', function ($scope, allTrailsService){
     console.log('allTrails Controller')
 
@@ -49,7 +49,7 @@ const AllTrailsCtrl = ['$scope','allTrailsService', function ($scope, allTrailsS
   };
 
   //Google Map
-  $scope.googleMapsUrl=`https://maps.googleapis.com/maps/api/js?key=${MAPKEY.map.key}&callback=initMap`;
+  $scope.googleMapsUrl=`https://maps.googleapis.com/maps/api/js?key=${MAPKEY}&callback=initMap`;
 
 }];
 

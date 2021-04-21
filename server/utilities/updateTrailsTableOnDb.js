@@ -2,9 +2,8 @@ const fetch = require(`node-fetch`);
 
 
 const Trail = require('../db/models/Trails');
-const weatherConfig = require(`../../config/config.js`);
 
-const WEATHERAPIKEYTWO = weatherConfig.weather.apiKey2;
+const WEATHERAPIKEYTWO = process.env.WEATHER_TWO;
 
 let lat;
 let long;
@@ -30,7 +29,7 @@ function updateTrailsWithRainKey() {
            lat = element.coordinates[1]
            fireRainAPI(lat, long, name)
         })
-    })
+    }).catch(err => console.log('updateTrailsTable:error on getting coords', err))
 }
 
 // call the rainAPI with each trails coords and get it's location key
@@ -45,7 +44,7 @@ async function fireRainAPI(lat, long, name){
        await updateRainInDatabase(key, name)
         
     } catch (error) {
-        console.log('ERR', error)
+        console.log('updateTrailsTable:error on calling API for keys', error)
     }
 }
 // save each key with it's correstponding trail name to the db
@@ -55,7 +54,7 @@ async function updateRainInDatabase(key, name) {
         .save({rain: key}, {patch:true})
         .catch(err => console.log(err))
     } catch (error) {
-        console.log('anothererr', error)
+        console.log('updateTrailsTable:error on saving keys to DB', error)
     }
 
 }

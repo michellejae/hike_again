@@ -2,8 +2,7 @@ const fetch = require(`node-fetch`);
 
 
 const Trail = require('../db/models/Trails');
-const weatherConfig = require(`../../config/config.js`);
-const WEATHERAPIKEY = weatherConfig.weather.apiKey;
+const WEATHERAPIKEY = process.env.WEATHER_ONE
 
 
 let lat;
@@ -21,6 +20,7 @@ global.hikeNow = {};
 
 // fetch all trails from DB and store the coordinates in an array 
 function getTrailHeads() { 
+    console.log('weather data')
     global.hikeNow.weather = {};
     return new Trail()
     .fetchAll()
@@ -31,7 +31,7 @@ function getTrailHeads() {
             lat = element.coordinates[1]
             getWeatherData(lat, long)
         })
-    })
+    }).catch(err => console.log('weatherData: err on getting lat/long', err))
 }
 
 // use when first testing api responses and don't want to call all 46 trails each time
@@ -74,7 +74,7 @@ function getTrailHeads() {
         }
        // console.log(global.hikeNow.weather)
     } catch (error) {
-        console.log('ERR', error)
+        console.log('weatehrData: calling weather API', error)
     }
 
   }
