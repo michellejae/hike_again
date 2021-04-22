@@ -19,6 +19,7 @@ module.exports = {
 
 // fetch all trails from DB and grab the coords and the name
 function updateTrailsWithRainKey() {
+  //fireRainAPI(21.32600541057219,-157.82195965395482,'Kanealole Trail')
     return new Trail()
     .fetchAll()
     .then(trails => {
@@ -32,16 +33,16 @@ function updateTrailsWithRainKey() {
     }).catch(err => console.log('updateTrailsTable:error on getting coords', err))
 }
 
+
 // call the rainAPI with each trails coords and get it's location key
 async function fireRainAPI(lat, long, name){
-    const newRainAPIEndpoint = `${rainAPI}?apikey=${WEATHERAPIKEYTWO}%20&q=${lat}%2C${long}`
+    const newRainAPIEndpoint = `${rainAPI}?apikey=${WEATHERAPIKEYTWO}&q=${lat}%2C${long}`
     try {
         const value = await fetch(newRainAPIEndpoint)
-        console.log('fired rain api to update rain in db')
         const data = await value.json()
         const key = data.Key
         //make sure to use await or it will fire before each key is grabbed
-       await updateRainInDatabase(key, name)
+        await updateRainInDatabase(key, name)
         
     } catch (error) {
         console.log('updateTrailsTable:error on calling API for keys', error)
@@ -49,6 +50,7 @@ async function fireRainAPI(lat, long, name){
 }
 // save each key with it's correstponding trail name to the db
 async function updateRainInDatabase(key, name) {
+    console.log(key, name)
     try {
         await Trail.where({trailname: name})
         .save({rain: key}, {patch:true})

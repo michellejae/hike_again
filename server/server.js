@@ -150,7 +150,7 @@ app.listen(PORT, () => {
    
     // IN THEORY WE SHOULD ONLY UPDATE THESE ONCE
     // put trails in db
-     //getTrails();
+     // getTrails();
     // add rain stations to trails db
     //updateTrailsWithRainKey()
   
